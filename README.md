@@ -1,17 +1,36 @@
 # MANTLE
 
-MANTLE is a work-in-progress radio protocol developed by the University of Guelph Rocketry Club. It is intended to provide a common communications foundation for all future club projects.
+**MANTLE** is a lightweight radio protocol for telemetry and command communication between student-built aerospace vehicles and ground systems.
 
-## Current Status
+Designed primarily around **LoRa**, MANTLE aims to provide a small, understandable, and robust packet format suitable for rockets, high-altitude balloons, and future flight-computer projects.
 
-MANTLE is under active development. Initial work is focused on support for LoRa radio links.
+## Goals
 
-## Roadmap
+* Minimal packet overhead
+* Binary telemetry and commands
+* CRC-based corruption detection
+* Sequence numbers and device addressing
+* Simple embedded implementation
+* Extensible message types
+* Hardware-independent design
 
-- LoRa support
-- GFSK support
-- Possible APRS support
+## Architecture
 
-## Contributing
+```text
+Sensors / Flight Software
+          │
+          ▼
+       MANTLE
+   encode / decode
+          │
+          ▼
+      LoRa Driver
+          │
+          ▼
+          RF
+          │
+          ▼
+   Ground Station
+```
 
-This repository is currently in early development. Contributions and feedback from UofG Rocketry Club members are welcome.
+MANTLE is currently under active development and its wire format is **not yet stable**.
