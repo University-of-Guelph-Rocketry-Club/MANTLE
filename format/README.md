@@ -1,1 +1,1 @@
-Protocol format specifications live here.
+The packet format and message definitions will live here.
