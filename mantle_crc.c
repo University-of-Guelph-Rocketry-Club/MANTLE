@@ -10,7 +10,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "crc.h"
+#include "mantle_crc.h"
 
 uint16_t gen_crc16(const uint8_t *data, uint16_t size)
 {
