@@ -7,3 +7,4 @@ $(TARGET): $(SOURCES)
 
 run: $(TARGET)
 	./$(TARGET)
+	@rm $(TARGET)

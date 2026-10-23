@@ -70,7 +70,7 @@ static_assert(sizeof(gsc_packet) <= GSC_MAX_PACKET_SIZE, "Packet size is too lar
   * @param  dest Destination ID value
   * @param  cmd Satellite command to pack into the packet body (first byte)
   * @param  body Packet body to be sent
-  * @param  body_len Length of the packet body to be sent
+  * @param  body_len Length of the packet body to be sent. Will be clamped to GSC_MAX_PAYLOAD_SIZE if too large!
   * @return Whether or not the packet was created successfuly. False if packet pointer is NULL, cmd = 0, or body is too big to fit in the packet structure.
   */
 bool gsc_new_packet(gsc_packet *p, const uint8_t dest, satellite_commands cmd, uint8_t *body, uint32_t body_len);
@@ -97,11 +97,5 @@ size_t gsc_packet_encode(gsc_packet *p, uint8_t *output, size_t output_len);
   * @param checksum Pointer to a uint16_t to store the checksum, returned as little-endianne
   */
 void gsc_packet_decode(void *stream, uint32_t *packet_id, uint8_t *source_id, uint8_t *dest_id, uint8_t *magic, uint8_t *body, uint16_t body_len, uint8_t *cmd, uint16_t *checksum);
-
-/**
-  * @brief Get maximum packet body size allowed for transmission. Use this function ahead of writing your packet data to the body to ensure the packet will decode successfully ahead of time.
-  * @return Maximum allowed packet body size
-  */
-uint8_t gsc_max_body_size();
 
 #endif // MANTLE_H

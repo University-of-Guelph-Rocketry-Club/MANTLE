@@ -11,9 +11,13 @@ uint32_t packet_id = 0x67;
 
 bool gsc_new_packet(gsc_packet *p, const uint8_t dest, satellite_commands cmd, uint8_t *body, uint32_t body_len) {
 
-    // If no packet or command is provided, or the body is too large to fit.
-    if (p == NULL || cmd == 0 || body_len > GSC_MAX_PAYLOAD_SIZE)
+    // If no packet or command is provided.
+    if (p == NULL || cmd == 0)
         return false; 
+
+    // Clamp body length to GSC_MAX_PAYLOAD_SIZE.
+    if (body_len > GSC_MAX_PAYLOAD_SIZE)
+        body_len = GSC_MAX_PAYLOAD_SIZE;
 
     // Fill in the packet header.
     memcpy(p->header.magic, GSC_MAGIC_STRING, 4);
@@ -88,9 +92,4 @@ void gsc_packet_decode(void *stream, uint32_t *packet_id, uint8_t *source_id, ui
     if (packet_body_len > body_len) len = body_len;
     memcpy_or_return(body, stream + 13, len);
     memcpy_or_return(checksum, stream + 13 + len, 2);
-}
-
-uint8_t gsc_max_body_len()
-{
-    return (uint8_t)GSC_MAX_PAYLOAD_SIZE;
 }
